@@ -3,287 +3,417 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <title>Mumha | Aromatizadores de Auto Premium</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet" />
-
-  <meta name="description" content="Mumha - Perfumes y fragancias exclusivas para autos. Experiencia sensorial única para tu vehículo. Envíos a domicilio.">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Mumha">
-  <link rel="canonical" href="https://www.mumha.com.ar">
-  <meta property="og:title" content="Mumha | Perfumes de Auto">
-  <meta property="og:description" content="Fragancias de autor para tu auto. Elegancia y distinción en cada viaje.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.mumha.com.ar/">
-  <meta property="og:image" content="https://www.mumha.com.ar/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Monsieur+La+Doulaise&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+  <title>Mumha | Perfumes para Autos</title>
 
   <style>
     :root {
-      --bg:            #0B0B0E;
-      --bg-2:          #0E0E14;
-      --bg-card:       #13131A;
-      --dorado:        #E6C687;
-      --dorado-fuerte: #A38243;
-      --texto:         #F8F9FA;
-      --texto-sec:     #A0A5B1;
-      --borde:         rgba(230, 198, 135, 0.12);
-      --dorado-glow:   rgba(230, 198, 135, 0.2);
-      --card-shadow:   none;
-    }
-    :root[data-theme="light"] {
-      --bg: #fcf9f4;
-      --bg-2: #f8f1e5;
-      --bg-card:       #FFFFFF;
-      --dorado:        #bb7c23;
-      --dorado-fuerte: #c7a376;
-      --texto:         #3A2E28;
-      --texto-sec:     #8B8178;
-      --borde:         rgba(217, 185, 140, 0.35);
-      --dorado-glow:   rgba(217, 185, 140, 0.18);
-      --card-shadow:   0 2px 14px rgba(180, 140, 90, 0.08);
+      --bg: #050506;
+      --bg-card: #101014;
+      --dorado: #e5c185;
+      --texto: #f8f9fa;
+      --texto-sec: #a0a5b1;
+      --borde: rgba(229, 193, 133, 0.2);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       background: var(--bg);
       color: var(--texto);
       overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
     }
 
-    .destellos { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    [data-theme="light"] .destellos { display: none; }
-    .destello {
-      position: absolute; bottom: -40px; border-radius: 50%;
-      border: 1px solid var(--dorado-glow);
-      animation: flotar linear infinite; filter: blur(1px);
-    }
-    .destello:nth-child(1) { width:12px; height:12px; left:10%; animation-duration:11s; animation-delay:0s; }
-    .destello:nth-child(2) { width:6px;  height:6px;  left:25%; animation-duration:15s; animation-delay:2s; }
-    .destello:nth-child(3) { width:18px; height:18px; left:40%; animation-duration:9s;  animation-delay:4s; }
-    .destello:nth-child(4) { width:8px;  height:8px;  left:60%; animation-duration:13s; animation-delay:1s; }
-    .destello:nth-child(5) { width:14px; height:14px; left:78%; animation-duration:10s; animation-delay:3s; }
-    .destello:nth-child(6) { width:5px;  height:5px;  left:90%; animation-duration:14s; animation-delay:5s; }
-
-    @keyframes flotar {
-      0%   { transform: translateY(0) scale(1); opacity: 0; }
-      20%  { opacity: 0.8; }
-      80%  { opacity: 0.4; }
-      100% { transform: translateY(-105vh) scale(1.2); opacity: 0; }
-    }
-
+    /* ── NAV FIJO ── */
     nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      background: var(--bg);
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--borde);
-      padding: 0 2rem;
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      padding: 1.2rem 4rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 70px;
-      transition: background 0.3s, border-color 0.3s;
+      background: rgba(5, 5, 6, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(229, 193, 133, 0.1);
     }
     .nav-logo {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       color: var(--dorado);
       text-decoration: none;
+      line-height: 1;
     }
-    .nav-derecha { display: flex; align-items: center; gap: 2.2rem; }
-    nav ul { list-style: none; display: flex; gap: 2.2rem; }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav ul li { position: relative; }
     nav ul a {
       color: var(--texto-sec);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      transition: color 0.2s;
+      padding-bottom: 8px;
+      display: inline-block;
+      transition: color 0.3s;
     }
     nav ul a:hover { color: var(--dorado); }
-
-    .theme-toggle {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      border: 1px solid var(--borde);
-      background: transparent;
-      color: var(--dorado);
-      font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
-      line-height: 1;
+    
+    nav ul a.active { color: var(--dorado); }
+    nav ul a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 2px;
+      background: var(--dorado);
+      border-radius: 2px;
     }
-    .theme-toggle:hover { border-color: var(--dorado); transform: scale(1.06); }
 
+    /* ── HERO CENTRADO ── */
     .hero {
-      position: relative; z-index: 1;
+      position: relative;
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 120px 4rem 4rem 4rem;
+	  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+              url('img/fondo4.png') center center / cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 580px;
       text-align: center;
-      padding: 140px 2rem 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .branding-hero { display: flex; flex-direction: column; align-items: center; gap: .2rem; margin-bottom: 1.5rem; }
-
-    .branding-title {
+    .hero-brand {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(4.5rem, 12vw, 7.5rem);
+      font-size: 6.2rem;
       color: var(--dorado);
-      line-height: 0.9;
-      text-shadow: 0 0 35px var(--dorado-glow);
+      line-height: 0.85;
     }
-    .branding-subtitle {
-      font-size: clamp(0.75rem, 1.8vw, 0.95rem);
-      letter-spacing: 0.45em;
-      color: var(--texto-sec);
+
+    .hero-subbrand {
+      font-size: 0.82rem;
+      letter-spacing: 0.42em;
       text-transform: uppercase;
-      margin-top: 5px;
+      color: var(--dorado);
+      margin-top: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+    
+    .hero-divider {
+      width: 50px;
+      height: 2px;
+      background: var(--dorado);
+      margin: 0 auto 2.2rem auto;
+      border: none;
     }
 
     .hero h1 {
-      font-size: clamp(1.8rem, 4.5vw, 3rem);
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 3.2rem;
+      font-weight: 400;
       line-height: 1.25;
-      color: var(--texto);
-      margin-bottom: 1.2rem;
-      letter-spacing: -0.01em;
+      color: var(--dorado);
+      margin-bottom: 2rem;
     }
-    .hero p {
-      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+
+    .hero-tags {
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
       color: var(--texto-sec);
-      max-width: 620px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    /* ── BARRA CARACTERÍSTICAS ── */
+    .features-bar {
+      background: #0a0a0d;
+      border-top: 1px solid var(--borde);
+      border-bottom: 1px solid var(--borde);
+      padding: 3rem 2rem;
+    }
+    .features-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .feature-item { 
+      padding: 0 1.5rem; 
+      border-right: 1px solid rgba(229, 193, 133, 0.15); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .feature-item:last-child { border-right: none; }
+    
+    .feature-svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--dorado);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-item h3 {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    .feature-item p { 
+      font-size: 0.75rem; 
+      color: var(--texto-sec); 
+      line-height: 1.5; 
       font-weight: 300;
     }
 
-    .btn-gold {
-      display: inline-flex; align-items: center; gap: 0.7rem;
-      background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-fuerte) 100%);
-      color: #241C12;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 1rem 2.4rem;
-      border-radius: 100px;
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      transition: transform 0.25s, box-shadow 0.25s;
-      box-shadow: 0 4px 25px var(--dorado-glow);
-    }
-    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 6px 35px var(--dorado-glow); }
-    .btn-gold svg { width: 20px; height: 20px; fill: currentColor; }
-
-    #experiencia {
-      position: relative; z-index: 1;
-      background: var(--bg-2);
-      padding: 90px 2rem 50px;
+    /* ── FRAGANCIAS ── */
+    .fragancias-section {
+      padding: 6rem 2rem;
       text-align: center;
-      border-top: 1px solid var(--borde);
-      transition: background 0.3s, border-color 0.3s;
-    }
-    .section-label {
-      color: var(--dorado);
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 0.75rem;
     }
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.01em;
-      color: var(--texto);
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 0.6rem;
     }
-    .texto-concepto {
-      max-width: 760px; margin: 0 auto; text-align: left;
-      font-size: 1.05rem; line-height: 1.85;
-      color: var(--texto-sec); font-weight: 300;
+    .section-divider {
+      width: 40px; height: 1.5px; background: var(--dorado); margin: 0 auto 3.5rem;
     }
-    .texto-concepto p { margin-bottom: 1.6rem; }
-    .texto-concepto strong { color: var(--texto); font-weight: 600; }
-
-    .ventajas-grid {
+    .fragancias-grid {
+      max-width: 1200px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin: 4rem auto 0;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
     }
-    .ventaja-item {
+    .fragancia-card {
       background: var(--bg-card);
       border: 1px solid var(--borde);
-      padding: 2rem 1.5rem;
-      border-radius: 16px;
+      border-radius: 4px;
+      padding: 1.2rem;
       text-align: center;
-      box-shadow: var(--card-shadow);
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .ventaja-item:hover { border-color: var(--dorado); }
-    .ventaja-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-    .ventaja-item h4 { color: var(--texto); font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .ventaja-item p { color: var(--texto-sec); font-size: 0.9rem; line-height: 1.5; }
-
-    #productos { position: relative; z-index: 1; padding: 90px 2rem; text-align: center; }
-    .cards { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; max-width: 1000px; margin: 0 auto; }
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--borde);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      flex: 1 1 290px;
-      max-width: 380px;
-      box-shadow: var(--card-shadow);
       transition: transform 0.3s, border-color 0.3s;
-      text-align: left;
     }
-    .card:hover { transform: translateY(-6px); border-color: var(--dorado); }
-    .card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--texto); }
-    .card p { color: var(--texto-sec); font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.5rem; }
-    .card-price { font-size: 1.3rem; font-weight: 700; color: var(--dorado); }
-
-    #contacto {
-      position: relative; z-index: 1;
-      background: var(--bg-2);
-      padding: 90px 2rem; text-align: center;
-      border-top: 1px solid var(--borde);
-      transition: background 0.3s, border-color 0.3s;
+    .fragancia-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--dorado);
     }
-    .form-wrap { max-width: 540px; margin: 0 auto; text-align: left; }
-    .form-wrap label { display: block; font-size: 0.85rem; color: var(--texto-sec); margin-bottom: 0.4rem; margin-top: 1.2rem; }
-    .form-wrap input, .form-wrap textarea, .form-wrap select {
+    .fragancia-img {
       width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--borde);
-      border-radius: 10px;
-      padding: 0.8rem 1rem;
-      color: var(--texto);
+      height: 190px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+    .fragancia-card h4 {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 0.4rem;
+    }
+    .fragancia-card p { font-size: 0.72rem; color: var(--texto-sec); line-height: 1.4; }
+
+    /* ── ESTILOS SECCIÓN NOSOTROS ── */
+    .nosotros-section {
+      background: #0a0a0d;
+      border-top: 1px solid var(--borde);
+      border-bottom: 1px solid var(--borde);
+      padding: 6.5rem 2rem;
+      text-align: center;
+    }
+
+    .nosotros-container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .nosotros-container p {
       font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-      transition: border-color 0.2s, background 0.3s, color 0.3s;
+      color: var(--texto-sec);
+      line-height: 1.8;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.1rem;
     }
-    .form-wrap input:focus, .form-wrap textarea:focus, .form-wrap select:focus { border-color: var(--dorado); }
-    .form-wrap textarea { height: 110px; resize: vertical; }
 
-    .btn-submit-wa {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-      background: #25D366; color: #fff;
-      font-weight: 600; font-size: 1rem;
-      padding: 0.9rem 2rem; border-radius: 100px; border: none;
-      cursor: pointer; margin-top: 1.8rem; width: 100%;
-      transition: opacity 0.2s, transform 0.2s;
-      text-decoration: none;
+    .nosotros-container p:last-child {
+      margin-bottom: 0;
     }
-    .btn-submit-wa:hover { opacity: 0.92; transform: translateY(-2px); }
-    .btn-submit-wa svg { width: 22px; height: 22px; fill: currentColor; }
 
+    .nosotros-container strong {
+      color: var(--dorado);
+      font-weight: 500;
+    }
+
+    /* ── CONTACTO WHATSAPP ── */
+	.whatsapp-section {
+	  position: relative;
+	  padding: 4.5rem 2rem 5.5rem;
+	  /* Capa de sombra a la izquierda para leer bien el texto + tu imagen a la derecha */
+	  background: linear-gradient(to right, rgba(5,5,6,0.92) 0%, rgba(5,5,6,0.7) 50%, rgba(5,5,6,0.2) 100%),
+				  url('img/fondo3.png') right center / cover no-repeat;
+	  border-top: 1px solid var(--borde);
+	  width: 100%;
+	}
+
+	.wa-divisor {
+	  text-align: center;
+	  margin-bottom: 3.5rem;
+	}
+	.wa-divisor .section-title { margin-bottom: 0.6rem; }
+	.wa-divisor .section-divider { margin-bottom: 0; }
+
+	.wa-container {
+	  display: flex !important;
+	  flex-direction: row !important;
+	  align-items: flex-start !important;
+	  justify-content: flex-start !important;
+	  gap: 2rem !important;
+	  max-width: 1100px;
+	  width: 100%;
+	  margin: 0 auto;
+	  padding-left: 5%;
+	}
+
+	.wa-main-icon {
+	  width: 68px !important;
+	  height: 68px !important;
+	  fill: var(--dorado) !important;
+	  flex-shrink: 0 !important;
+	  margin-top: 0.2rem;
+	}
+
+	.wa-text-block {
+	  display: flex !important;
+	  flex-direction: column !important;
+	  align-items: flex-start !important;
+	  text-align: left !important;
+	}
+
+	.wa-label {
+	  font-size: 0.75rem;
+	  letter-spacing: 0.35em;
+	  text-transform: uppercase;
+	  color: var(--dorado);
+	  margin-bottom: 0.6rem;
+	  margin-left: 0.2rem;
+	  display: block;
+	  font-weight: 500;
+	}
+
+	.wa-title {
+	  font-family: 'Playfair Display', serif !important;
+	  font-style: italic !important;
+	  font-size: 3.8rem;
+	  font-weight: 400;
+	  color: var(--dorado);
+	  line-height: 1;
+	  margin-bottom: 1.2rem;
+	  letter-spacing: 0.02em;
+	}
+
+	.wa-desc {
+	  font-size: 0.85rem;
+	  color: var(--texto-sec);
+	  margin-bottom: 1.8rem;
+	  line-height: 1.6;
+	  font-weight: 300;
+	  text-align: left;
+	}
+
+	.btn-wa-outline {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.8rem;
+	  border: 1px solid var(--dorado);
+	  color: var(--dorado);
+	  padding: 0.8rem 2rem;
+	  font-size: 0.7rem;
+	  letter-spacing: 0.25em;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  border-radius: 50px;
+	  transition: all 0.3s ease;
+	}
+
+	.btn-wa-outline svg {
+	  width: 18px;
+	  height: 18px;
+	  fill: var(--dorado);
+	  transition: fill 0.3s ease;
+	}
+
+	.btn-wa-outline:hover {
+	  background: var(--dorado);
+	  color: #000;
+	}
+
+	.btn-wa-outline:hover svg {
+	  fill: #000;
+	}
+
+	@media (max-width: 768px) {
+	  .whatsapp-section {
+		background: linear-gradient(to bottom, rgba(5,5,6,0.92), rgba(5,5,6,0.85)),
+					url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+		justify-content: center;
+	  }
+	  .wa-container {
+		flex-direction: column !important;
+		align-items: center !important;
+		text-align: center;
+		padding-left: 0;
+	  }
+	  .wa-text-block {
+		align-items: center !important;
+		text-align: center !important;
+	  }
+	  .wa-label {
+		margin-left: 0;
+	  }
+	  .wa-desc {
+		text-align: center;
+	  }
+	}
+
+
+    /* ── BOTÓN FLOTANTE ── */
+    .wa-flotante {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      background: #25D366; width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      transition: transform 0.2s;
+    }
+    .wa-flotante:hover { transform: scale(1.08); }
+    .wa-flotante svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── FOOTER ── */
     footer {
       position: relative; z-index: 1;
       background: var(--bg);
@@ -297,193 +427,213 @@
     footer .credits { font-size: 0.8rem; margin-top: 8px; opacity: 0.8; }
     footer .credits a { color: var(--dorado); text-decoration: underline; }
 
-    .wa-flotante {
-      position: fixed; bottom: 28px; right: 28px; z-index: 200;
-      background: #25D366; width: 58px; height: 58px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      text-decoration: none; transition: transform 0.2s;
+    /* ── MEDIA QUERIES ── */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+      .feature-item { border-right: none; }
+      .fragancias-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    .wa-flotante:hover { transform: scale(1.1); }
-    .wa-flotante svg { width: 30px; height: 30px; fill: white; }
 
     @media (max-width: 600px) {
       nav ul { display: none; }
-      .cards { flex-direction: column; align-items: center; }
+      .hero { padding: 100px 2rem 4rem 2rem; justify-content: center; }
+      .fragancias-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .wa-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .wa-text-block {
+        align-items: center;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="destellos" aria-hidden="true">
-  <div class="destello"></div><div class="destello"></div>
-  <div class="destello"></div><div class="destello"></div>
-  <div class="destello"></div><div class="destello"></div>
-</div>
-
-<nav>
-  <a href="#" class="nav-logo">Mumha</a>
-  <div class="nav-derecha">
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Mumha</a>
     <ul>
-      <li><a href="#experiencia">Nosotros</a></li>
-      <li><a href="#productos">Fragancias</a></li>
-      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+      <li><a href="#fragancias" class="nav-link">Fragancias</a></li>
+      <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+      <li><a href="#contacto" class="nav-link">Contacto</a></li>
     </ul>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar a modo claro">🌙</button>
+  </nav>
+
+  <!-- HERO CENTRADO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="hero-brand">Mumha</div>
+      <div class="hero-subbrand">Perfumes para Autos</div>
+      <hr class="hero-divider">
+      <h1>Encontrá tu fragancia.</h1>
+      <div class="hero-tags">Aromas Únicos · Duración Real · Estilo Propio</div>
+    </div>
+  </section>
+
+  <!-- BARRA CARACTERÍSTICAS -->
+  <section class="features-bar">
+    <div class="features-grid">
+      <div class="feature-item">
+        <svg class="feature-svg" viewBox="0 0 24 24">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+        <h3>Fragancias Exclusivas</h3>
+        <p>Aromas que marcan la diferencia.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <h3>Larga Duración</h3>
+        <p>Disfrutá el aroma por más tiempo.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-svg" viewBox="0 0 24 24">
+          <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H8c-.7 0-1.3.3-1.8.7C5.3 8.6 4 10 4 10s-2.7.6-4.5 1.1C.7 11.3 0 12.1 0 13v3c0 .6.4 1 1 1h2"/>
+          <circle cx="7" cy="17" r="2"/>
+          <path d="M9 17h6"/>
+          <circle cx="17" cy="17" r="2"/>
+        </svg>
+        <h3>Fácil Instalación</h3>
+        <p>Solo colgalo y listo.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-svg" viewBox="0 0 24 24">
+          <path d="M6 3h12l4 6-10 12L2 9z"/>
+          <path d="M11 3 8 9l4 12 4-12-3-6"/>
+          <path d="M2 9h20"/>
+        </svg>
+        <h3>Calidad Garantizada</h3>
+        <p>Productos seleccionados y de primera línea.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAGANCIAS -->
+  <section class="fragancias-section" id="fragancias">
+    <div class="section-title">Algunas Fragancias</div>
+    <div class="section-divider"></div>
+
+    <div class="fragancias-grid">
+      <div class="fragancia-card">
+        <img src="img/citrico.jpg" alt="Cítrico" class="fragancia-img">
+        <h4>Cítrico</h4>
+        <p>Frescura que te acompaña.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/lavanda.jpg" alt="Lavanda" class="fragancia-img">
+        <h4>Lavanda</h4>
+        <p>Tranquilidad en cada viaje.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/vainilla.jpg" alt="Vainilla" class="fragancia-img">
+        <h4>Vainilla - Coco</h4>
+        <p>Calidez y confort.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/aqua.jpg" alt="Oceánico" class="fragancia-img">
+        <h4>Aqua</h4>
+        <p>Energía y libertad.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/madera.jpg" alt="Amaderado" class="fragancia-img">
+        <h4>Amaderado</h4>
+        <p>Elegancia natural.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="nosotros-section" id="nosotros">
+    <div class="section-title">Experiencia Mumha</div>
+    <div class="section-divider"></div>
+    <div class="nosotros-container">
+      <p>En <strong>Mumha</strong> redefinimos el concepto de aromatizar el automóvil. No creamos simples aromatizantes; desarrollamos <strong>fragancias de auto</strong> diseñadas para permanecer en el interior del vehículo con elegancia, sin saturar ni perder su carácter.</p>
+      <p>Cada una de nuestras esencias es testeada para resistir las variaciones de temperatura dentro del habitáculo, manteniendo su nota aromática intacta durante meses.</p>
+    </div>
+  </section>
+
+    <!-- CONTACTO WHATSAPP -->
+	<section class="whatsapp-section" id="contacto">
+  <div class="wa-divisor">
+    <div class="section-title">Contacto</div>
+    <div class="section-divider"></div>
   </div>
-</nav>
+  <div class="wa-container">
 
-<section class="hero">
-  <div class="branding-hero">
-    <div class="branding-title">Mumha</div>
-    <div class="branding-subtitle">CAR FRAGRANCES & DETAILING</div>
+    <!-- Logo oficial de WhatsApp -->
+    <svg class="wa-main-icon" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+
+    <!-- Bloque de textos -->
+    <div class="wa-text-block">
+      <span class="wa-label">Hacé tu consulta directo por</span>
+      <h2 class="wa-title">WhatsApp</h2>
+      
+      <p class="wa-desc">
+        Te asesoramos en fragancias, disponibilidad<br>
+        y hacemos tu pedido.
+      </p>
+      
+      <a href="#" id="btn-wa" class="btn-wa-outline" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Escribir por WhatsApp
+      </a>
+    </div>
+
   </div>
+</section>
 
-  <h1>El aroma distintivo<br>que tu vehículo merece</h1>
-  <p>Aromatizadores de auto formulados con aceites esenciales de alta persistencia. Transformá cada trayecto en una experiencia sensorial sofisticada.</p>
+  <footer>
+    <p>© 2026 Mumha Car Fragrances. Todos los derechos reservados.</p>
+    <p class="credits">
+      Desarrollado por <a href="https://www.linkedin.com/in/claudio-parodi-60275b49/" target="_blank" rel="noopener noreferrer">Claudio Parodi</a>
+    </p>
+  </footer>
 
-  <a class="btn-gold" id="hero-wa" href="#" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45"/></svg>
-    Pedir catálogo por WhatsApp
+  <!-- BOTÓN FLOTANTE -->
+  <a class="wa-flotante" id="wa-flotante" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
-</section>
 
-<section id="experiencia">
-  <div class="section-label">Experiencia Mumha</div>
-  <h2 class="section-title">Pasión por los detalles</h2>
-  <div class="texto-concepto">
-    <p>En <strong>Mumha</strong> redefinimos el concepto de aromatizar el automóvil. No creamos simples aromatizantes; desarrollamos <strong>fragancias de auto</strong> diseñadas para permanecer en el interior del vehículo con elegancia, sin saturar ni perder su carácter.</p>
-    <p>Cada una de nuestras esencias es testeada para resistir las variaciones de temperatura dentro del habitáculo, manteniendo su nota aromática intacta durante meses.</p>
-  </div>
+  <script>
+    const NUMERO_WA = "5493543626280";
+    const linkWA = `https://wa.me/${NUMERO_WA}?text=${encodeURIComponent("Hola Mumha! Quisiera consultar por las fragancias 👋")}`;
 
-  <div class="ventajas-grid">
-    <div class="ventaja-item">
-      <div class="ventaja-icon">✨</div>
-      <h4>Alta Duración</h4>
-      <p>Fórmulas concentradas que permanecen en el habitáculo por más tiempo.</p>
-    </div>
-    <div class="ventaja-item">
-      <div class="ventaja-icon">🌿</div>
-      <h4>Esencias Premium</h4>
-      <p>Notas olfativas complejas inspiradas en la perfumería internacional.</p>
-    </div>
-    <div class="ventaja-item">
-      <div class="ventaja-icon">🚗</div>
-      <h4>Cierre Hermético</h4>
-      <p>Tapón de madera natural que sella el frasco con cero derrames.</p>
-    </div>
-  </div>
-</section>
+    document.getElementById("btn-wa").href = linkWA;
+    document.getElementById("wa-flotante").href = linkWA;
 
-<section id="productos">
-  <div class="section-label">Colección Exclusiva</div>
-  <h2 class="section-title">Nuestras Líneas</h2>
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("nav ul a.nav-link");
 
-  <div class="cards">
-    <div class="card">
-      <h3>Mumha Black Leather</h3>
-      <p>Notas amaderadas, cuero ahumado y suaves toques de ámbar. La máxima expresión del lujo para interiores exigentes.</p>
-      <div class="card-price">Consultar precio</div>
-    </div>
+    window.addEventListener("scroll", () => {
+      let currentSection = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 150;
+        if (window.scrollY >= sectionTop) {
+          currentSection = section.getAttribute("id");
+        }
+      });
 
-    <div class="card">
-      <h3>Mumha Velvet Vanilla</h3>
-      <p>Vainilla de Madagascar combinada con toques de bourbon y madera dulce. Cálido, envolvente y sofisticado.</p>
-      <div class="card-price">Consultar precio</div>
-    </div>
-
-    <div class="card">
-      <h3>Mumha Citrus Sport</h3>
-      <p>Bergamota fresca, menta salvaje y cedro. Sensación de frescura intensa y limpieza continua.</p>
-      <div class="card-price">Consultar precio</div>
-    </div>
-  </div>
-</section>
-
-<section id="contacto">
-  <div class="section-label">Pedidos y Consultas</div>
-  <h2 class="section-title">Contactate con nosotros</h2>
-
-  <div class="form-wrap">
-    <label for="nombre">Tu Nombre</label>
-    <input type="text" id="nombre" placeholder="Ej: Carlos Gómez" />
-
-    <label for="fragancia">Fragancia de Interés</label>
-    <select id="fragancia">
-      <option value="Black Leather">Black Leather (Cuero & Ámbar)</option>
-      <option value="Velvet Vanilla">Velvet Vanilla (Vainilla & Bourbon)</option>
-      <option value="Citrus Sport">Citrus Sport (Bergamota & Menta)</option>
-      <option value="Otras / Asesoramiento">Quiero asesoramiento / Ver catálogo completo</option>
-    </select>
-
-    <label for="mensaje">Consulta o Pedido</label>
-    <textarea id="mensaje" placeholder="Ej: Hola! Me gustaría encargar un muestreario de perfumes para entrega en Córdoba Capital..."></textarea>
-
-    <button class="btn-submit-wa" id="btn-enviar">
-      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Enviar Pedido por WhatsApp
-    </button>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 Mumha Car Fragrances. Todos los derechos reservados.</p>
-  <p class="credits">
-    Desarrollado por <a href="https://www.linkedin.com/in/claudio-parodi-60275b49/" target="_blank" rel="noopener noreferrer">Claudio Parodi</a>
-  </p>
-</footer>
-
-<a class="wa-flotante" id="wa-flotante" href="#" target="_blank" rel="noopener" title="Escribinos por WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<script>
-  const NUMERO_WA = "5493543626280";
-
-  function buildWALink(texto) {
-    return `https://wa.me/${NUMERO_WA}?text=${encodeURIComponent(texto)}`;
-  }
-
-  document.getElementById("hero-wa").href = buildWALink("Hola Mumha! Quisiera conocer su catálogo de fragancias 👋");
-  document.getElementById("wa-flotante").href = buildWALink("Hola Mumha! 👋");
-
-  document.getElementById("btn-enviar").addEventListener("click", function(e) {
-    e.preventDefault();
-    const nombre    = document.getElementById("nombre").value.trim();
-    const fragancia = document.getElementById("fragancia").value;
-    const mensaje   = document.getElementById("mensaje").value.trim();
-
-    let texto = "Hola Mumha! 👋\n\n";
-    if (nombre) texto += `Nombre: ${nombre}\n`;
-    texto += `Interés: ${fragancia}\n`;
-    if (mensaje) texto += `Consulta: ${mensaje}\n`;
-
-    window.open(buildWALink(texto), "_blank");
-  });
-
-  const root = document.documentElement;
-  const toggleBtn = document.getElementById("theme-toggle");
-
-  function aplicarTema(tema) {
-    root.setAttribute("data-theme", tema);
-    toggleBtn.textContent = tema === "light" ? "☀️" : "🌙";
-    toggleBtn.setAttribute("aria-label", tema === "light" ? "Cambiar a modo oscuro" : "Cambiar a modo claro");
-  }
-
-  let temaGuardado = "dark";
-  try {
-    temaGuardado = localStorage.getItem("mumha-theme") || "dark";
-  } catch (e) {}
-  aplicarTema(temaGuardado);
-
-  toggleBtn.addEventListener("click", function () {
-    const nuevoTema = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-    aplicarTema(nuevoTema);
-    try {
-      localStorage.setItem("mumha-theme", nuevoTema);
-    } catch (e) {}
-  });
-</script>
-
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${currentSection}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
