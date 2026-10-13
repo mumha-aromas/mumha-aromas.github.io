@@ -15,11 +15,12 @@
   <style>
     :root {
       --bg: #050506;
-      --bg-card: #1e1e21; /*probar con #1e1e21 en vez de #101014*/
+      --bg-card: #101014; /*probar con #1e1e21 en vez de #101014*/
       --dorado: #e5c185;
       --texto: #f8f9fa;
       --texto-sec: #a0a5b1;
       --borde: rgba(229, 193, 133, 0.2);
+	  --gris-oscuro: #121212
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +38,7 @@
       position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
       padding: 1.2rem 4rem;
       display: flex; align-items: center; justify-content: space-between;
-      background: #181818;
+      background: var(--gris-oscuro);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(229, 193, 133, 0.1);
@@ -140,7 +141,7 @@
 
     /* ── BARRA CARACTERÍSTICAS ── */
     .features-bar {
-      background: #181818;
+      background: var(--gris-oscuro);
       border-top: 1px solid var(--borde);
       border-bottom: 1px solid var(--borde);
       padding: 3rem 2rem;
@@ -240,7 +241,7 @@
 
     /* ── ESTILOS SECCIÓN NOSOTROS ── */
     .nosotros-section {
-      background: #181818;
+      background: var(--gris-oscuro);
       border-top: 1px solid var(--borde);
       border-bottom: 1px solid var(--borde);
       padding: 6.5rem 2rem;
@@ -416,7 +417,7 @@
     /* ── FOOTER ── */
     footer {
       position: relative; z-index: 1;
-      background: #181818;
+      background: var(--gris-oscuro);
       border-top: 1px solid var(--borde);
       text-align: center;
       padding: 2.5rem 2rem;
@@ -525,12 +526,12 @@
 
     <div class="fragancias-grid">
       <div class="fragancia-card">
-        <img src="img/citrico.jpg" alt="Cítrico" class="fragancia-img">
+        <img src="img/citrico.jpeg" alt="Cítrico" class="fragancia-img">
         <h4>Cítrico</h4>
         <p>Frescura que te acompaña.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/lavanda.jpg" alt="Lavanda" class="fragancia-img">
+        <img src="img/lavanda.jpeg" alt="Lavanda" class="fragancia-img">
         <h4>Lavanda</h4>
         <p>Tranquilidad en cada viaje.</p>
       </div>
@@ -545,7 +546,7 @@
         <p>Energía y libertad.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/madera.jpg" alt="Amaderado" class="fragancia-img">
+        <img src="img/amaderado.jpeg" alt="Amaderado" class="fragancia-img">
         <h4>Amaderado</h4>
         <p>Elegancia natural.</p>
       </div>
