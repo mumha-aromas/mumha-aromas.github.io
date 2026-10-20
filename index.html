@@ -204,14 +204,25 @@
     .section-divider {
       width: 40px; height: 1.5px; background: var(--dorado); margin: 0 auto 3.5rem;
     }
-    .fragancias-grid {
+    /* carrusel horizontal: se desliza con el dedo o con las flechas */
+    .carrusel {
+      position: relative;
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.5rem;
     }
+    .fragancias-grid {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 10px 2px 14px;
+      scrollbar-width: none;
+    }
+    .fragancias-grid::-webkit-scrollbar { display: none; }
     .fragancia-card {
+      flex: 0 0 calc((100% - 4.5rem) / 4);
+      scroll-snap-align: start;
       background: var(--bg-card);
       border: 1px solid var(--borde);
       border-radius: 4px;
@@ -219,6 +230,28 @@
       text-align: center;
       transition: transform 0.3s, border-color 0.3s;
     }
+    .carrusel-btn {
+      position: absolute;
+      top: 42%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--dorado);
+      background: rgba(5, 5, 6, 0.88);
+      color: var(--dorado);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: opacity 0.3s, background 0.3s, color 0.3s;
+    }
+    .carrusel-btn:hover { background: var(--dorado); color: #000; }
+    .carrusel-btn:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
+    .carrusel-btn:disabled { opacity: 0; pointer-events: none; }
+    .carrusel-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .carrusel-prev { left: -23px; }
+    .carrusel-next { right: -23px; }
     .fragancia-card:hover {
       transform: translateY(-6px);
       border-color: var(--dorado);
@@ -441,14 +474,16 @@
     @media (max-width: 900px) {
       .features-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
       .feature-item { border-right: none; }
-      .fragancias-grid { grid-template-columns: repeat(2, 1fr); }
+      .fragancia-card { flex-basis: calc((100% - 3rem) / 3); }
     }
 
     @media (max-width: 600px) {
       nav ul { display: none; }
       .hero { padding: 100px 2rem 4rem 2rem; justify-content: center; }
-      .fragancias-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-      .fragancia-card { padding: 0.8rem; }
+      .fragancias-grid { gap: 1rem; }
+      .fragancia-card { flex-basis: 72%; padding: 0.9rem; }
+      .carrusel-prev { left: 6px; }
+      .carrusel-next { right: 6px; }
       .fragancia-card h4 { font-size: 0.75rem; letter-spacing: 0.12em; }
       .features-grid { grid-template-columns: 1fr; }
       .wa-container {
@@ -535,7 +570,11 @@
     <div class="section-title">Nuestras Fragancias</div>
     <div class="section-divider"></div>
 
-    <div class="fragancias-grid">
+    <div class="carrusel">
+    <button type="button" class="carrusel-btn carrusel-prev" id="frag-prev" aria-label="Ver fragancias anteriores" disabled>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="fragancias-grid" id="frag-track" tabindex="0" aria-label="Fragancias Mumha, deslizá para ver más">
       <div class="fragancia-card">
         <img src="img/frasco-citrico.jpeg" alt="Frasco Mumha Cítrico con etiqueta verde" class="fragancia-img" loading="lazy">
         <h4>Cítrico</h4>
@@ -566,16 +605,20 @@
         <h4>Flores Blancas</h4>
         <p>Pureza que te envuelve.</p>
       </div>
-      <div class="fragancia-card">
+      <!--div class="fragancia-card">
         <img src="img/frasco-urbano.jpeg" alt="Frasco Mumha Urbano con etiqueta azul marino" class="fragancia-img" loading="lazy">
         <h4>Urbano</h4>
         <p>Frescura para cada día.</p>
-      </div>
+      </div-->
       <div class="fragancia-card">
         <img src="img/frasco-pepino.jpeg" alt="Frasco Mumha Té Verde y Pepino con etiqueta verde azulada" class="fragancia-img" loading="lazy">
         <h4>Té Verde y Pepino</h4>
         <p>Serenidad natural.</p>
       </div>
+    </div>
+    <button type="button" class="carrusel-btn carrusel-next" id="frag-next" aria-label="Ver más fragancias">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
     </div>
     <p class="fragancias-nota">Imágenes ilustrativas generadas digitalmente.</p>
   </section>
@@ -642,6 +685,25 @@
 
     document.getElementById("btn-wa").href = linkWA;
     document.getElementById("wa-flotante").href = linkWA;
+
+    // Carrusel de fragancias: cada flecha avanza una tarjeta
+    const track = document.getElementById("frag-track");
+    const prevBtn = document.getElementById("frag-prev");
+    const nextBtn = document.getElementById("frag-next");
+    const paso = () => {
+      const card = track.querySelector(".fragancia-card");
+      return card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+    };
+    const actualizarFlechas = () => {
+      prevBtn.disabled = track.scrollLeft <= 2;
+      nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+    prevBtn.addEventListener("click", () => track.scrollBy({ left: -paso(), behavior: "smooth" }));
+    nextBtn.addEventListener("click", () => track.scrollBy({ left: paso(), behavior: "smooth" }));
+    track.addEventListener("scroll", actualizarFlechas, { passive: true });
+    window.addEventListener("resize", actualizarFlechas);
+    window.addEventListener("load", actualizarFlechas);
+    actualizarFlechas();
 
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll("nav ul a.nav-link");
