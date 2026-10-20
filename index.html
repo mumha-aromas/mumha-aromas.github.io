@@ -208,7 +208,7 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1.5rem;
     }
     .fragancia-card {
@@ -224,11 +224,20 @@
       border-color: var(--dorado);
     }
     .fragancia-img {
+      display: block;
       width: 100%;
-      height: 190px;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
       border-radius: 2px;
       margin-bottom: 1.2rem;
+    }
+    .fragancias-nota {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      font-size: 0.7rem;
+      color: var(--texto-sec);
+      opacity: 0.75;
+      letter-spacing: 0.05em;
     }
     .fragancia-card h4 {
       font-size: 0.85rem;
@@ -438,7 +447,9 @@
     @media (max-width: 600px) {
       nav ul { display: none; }
       .hero { padding: 100px 2rem 4rem 2rem; justify-content: center; }
-      .fragancias-grid { grid-template-columns: 1fr; }
+      .fragancias-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .fragancia-card { padding: 0.8rem; }
+      .fragancia-card h4 { font-size: 0.75rem; letter-spacing: 0.12em; }
       .features-grid { grid-template-columns: 1fr; }
       .wa-container {
         flex-direction: column;
@@ -521,36 +532,52 @@
 
   <!-- FRAGANCIAS -->
   <section class="fragancias-section" id="fragancias">
-    <div class="section-title">Algunas Fragancias</div>
+    <div class="section-title">Nuestras Fragancias</div>
     <div class="section-divider"></div>
 
     <div class="fragancias-grid">
       <div class="fragancia-card">
-        <img src="img/citrico.jpeg" alt="Cítrico" class="fragancia-img">
+        <img src="img/frasco-citrico.jpeg" alt="Frasco Mumha Cítrico con etiqueta verde" class="fragancia-img" loading="lazy">
         <h4>Cítrico</h4>
         <p>Frescura que te acompaña.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/lavanda.jpeg" alt="Lavanda" class="fragancia-img">
+        <img src="img/frasco-lavanda.jpeg" alt="Frasco Mumha Lavanda con etiqueta violeta" class="fragancia-img" loading="lazy">
         <h4>Lavanda</h4>
         <p>Tranquilidad en cada viaje.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/vainilla.jpg" alt="Vainilla" class="fragancia-img">
+        <img src="img/frasco-coco.jpeg" alt="Frasco Mumha Vainilla - Coco con etiqueta marrón" class="fragancia-img" loading="lazy">
         <h4>Vainilla - Coco</h4>
         <p>Calidez y confort.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/aqua.jpg" alt="Oceánico" class="fragancia-img">
+        <img src="img/frasco-aqua.jpeg" alt="Frasco Mumha Aqua con etiqueta azul" class="fragancia-img" loading="lazy">
         <h4>Aqua</h4>
         <p>Energía y libertad.</p>
       </div>
       <div class="fragancia-card">
-        <img src="img/amaderado.jpeg" alt="Amaderado" class="fragancia-img">
+        <img src="img/frasco-amaderado.jpeg" alt="Frasco Mumha Amaderado con etiqueta ciruela" class="fragancia-img" loading="lazy">
         <h4>Amaderado</h4>
         <p>Elegancia natural.</p>
       </div>
+      <div class="fragancia-card">
+        <img src="img/frasco-flores.jpeg" alt="Frasco Mumha Flores Blancas con etiqueta fucsia" class="fragancia-img" loading="lazy">
+        <h4>Flores Blancas</h4>
+        <p>Pureza que te envuelve.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/frasco-urbano.jpeg" alt="Frasco Mumha Urbano con etiqueta azul marino" class="fragancia-img" loading="lazy">
+        <h4>Urbano</h4>
+        <p>Frescura para cada día.</p>
+      </div>
+      <div class="fragancia-card">
+        <img src="img/frasco-pepino.jpeg" alt="Frasco Mumha Té Verde y Pepino con etiqueta verde azulada" class="fragancia-img" loading="lazy">
+        <h4>Té Verde y Pepino</h4>
+        <p>Serenidad natural.</p>
+      </div>
     </div>
+    <p class="fragancias-nota">Imágenes ilustrativas generadas digitalmente.</p>
   </section>
 
   <!-- NOSOTROS -->
