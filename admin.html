@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mumha | Administrar fragancias</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050506;
+      --card: #101014;
+      --campo: #18181d;
+      --dorado: #e5c185;
+      --texto: #f8f9fa;
+      --sec: #a0a5b1;
+      --borde: rgba(229, 193, 133, 0.2);
+      --error: #e57373;
+      --ok: #7fc8a0;
+      color-scheme: dark;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--texto); min-height: 100vh; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+    header { border-bottom: 1px solid var(--borde); background: #121212; position: sticky; top: 0; z-index: 10; }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px; }
+    .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--dorado); line-height: 1; text-decoration: none; }
+    .logo small { font-family: 'Montserrat', sans-serif; font-size: .65rem; letter-spacing: .3em; text-transform: uppercase; color: var(--sec); margin-left: .6rem; }
+    .usuario { display: flex; align-items: center; gap: 12px; font-size: .8rem; color: var(--sec); min-width: 0; }
+    .usuario span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    button, .btn {
+      font: inherit; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      border: 1px solid var(--dorado); background: transparent; color: var(--dorado);
+      padding: .7rem 1.2rem; border-radius: 50px; cursor: pointer; transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    button:hover { background: var(--dorado); color: #000; }
+    button.lleno { background: var(--dorado); color: #000; }
+    button.lleno:hover { filter: brightness(1.08); }
+    button.peligro { border-color: rgba(229,115,115,.5); color: var(--error); }
+    button.peligro:hover { background: var(--error); color: #000; }
+    button:disabled { opacity: .5; cursor: wait; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, label.foto:focus-within { outline: 2px solid var(--dorado); outline-offset: 2px; }
+
+    /* login */
+    .login { max-width: 380px; margin: 12vh auto 0; background: var(--card); border: 1px solid var(--borde); border-radius: 6px; padding: 2rem 1.6rem; }
+    .login h1 { font-family: 'Great Vibes', cursive; font-weight: 400; font-size: 3.2rem; color: var(--dorado); text-align: center; line-height: 1; }
+    .login p.sub { text-align: center; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--sec); margin: .4rem 0 1.8rem; }
+    .login button { width: 100%; margin-top: 1rem; }
+
+    label.campo { display: block; font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--sec); margin-bottom: .9rem; }
+    input[type=text], input[type=email], input[type=password], input[type=number], textarea {
+      display: block; width: 100%; margin-top: .35rem; font: inherit; font-size: .95rem; letter-spacing: 0; text-transform: none;
+      color: var(--texto); background: var(--campo); border: 1px solid rgba(255,255,255,.08); border-radius: 4px; padding: .65rem .75rem;
+    }
+    textarea { resize: vertical; min-height: 2.6rem; }
+
+    /* barra */
+    .barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 2rem 0 1.2rem; }
+    .barra h2 { font-size: .85rem; letter-spacing: .3em; text-transform: uppercase; color: var(--dorado); font-weight: 600; }
+    .barra p { font-size: .8rem; color: var(--sec); margin-top: .3rem; }
+
+    /* tarjetas de edición */
+    .lista { display: grid; gap: 14px; padding-bottom: 4rem; }
+    .item { display: grid; grid-template-columns: 150px 1fr; gap: 18px; background: var(--card); border: 1px solid var(--borde); border-radius: 6px; padding: 16px; }
+    .item.inactivo { opacity: .6; }
+    .item > * { min-width: 0; }
+    label.foto { position: relative; display: block; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: var(--campo); cursor: pointer; border: 1px dashed var(--borde); }
+    label.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    label.foto .cambiar { position: absolute; inset: auto 0 0 0; padding: .45rem; text-align: center; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; background: rgba(0,0,0,.72); color: var(--dorado); }
+    label.foto .vacia { position: absolute; inset: 0; display: grid; place-items: center; font-size: .7rem; color: var(--sec); text-align: center; padding: 1rem; }
+    label.foto input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .fila { display: grid; grid-template-columns: 1fr 90px; gap: 12px; }
+    .acciones { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: .3rem; }
+    .acciones .espacio { flex: 1; }
+    .switch { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--sec); cursor: pointer; }
+    .switch input { width: 18px; height: 18px; accent-color: var(--dorado); }
+    .pendiente { font-size: .72rem; color: var(--dorado); }
+
+    .vacio { text-align: center; color: var(--sec); padding: 3rem 1rem; border: 1px dashed var(--borde); border-radius: 6px; }
+    .error { color: var(--error); font-size: .82rem; margin-top: .8rem; min-height: 1.2em; }
+
+    #aviso {
+      position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(120%);
+      background: #1b1b20; border: 1px solid var(--borde); color: var(--texto); padding: .8rem 1.2rem; border-radius: 6px;
+      font-size: .85rem; transition: transform .25s; z-index: 50; max-width: calc(100% - 32px);
+    }
+    #aviso.visible { transform: translateX(-50%) translateY(0); }
+    #aviso.ok { border-color: rgba(127,200,160,.5); }
+    #aviso.mal { border-color: rgba(229,115,115,.6); color: var(--error); }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 600px) {
+      .item { grid-template-columns: 1fr; }
+      label.foto { max-width: 220px; }
+      .logo small { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap">
+      <a class="logo" href="./">Mumha<small>Administración</small></a>
+      <div class="usuario" id="usuario" hidden>
+        <span id="usuario-email"></span>
+        <button type="button" id="btn-salir">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOGIN -->
+  <main class="wrap" id="vista-login" hidden>
+    <form class="login" id="form-login">
+      <h1>Mumha</h1>
+      <p class="sub">Administrar fragancias</p>
+      <label class="campo">Email
+        <input type="email" id="email" autocomplete="username" required>
+      </label>
+      <label class="campo">Contraseña
+        <input type="password" id="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit" class="lleno" id="btn-entrar">Entrar</button>
+      <p class="error" id="login-error" role="alert"></p>
+    </form>
+  </main>
+
+  <!-- PANEL -->
+  <main class="wrap" id="vista-panel" hidden>
+    <div class="barra">
+      <div>
+        <h2>Fragancias</h2>
+        <p>Los cambios se ven en la página apenas guardás. Las inactivas no se muestran.</p>
+      </div>
+      <button type="button" class="lleno" id="btn-nueva">+ Nueva fragancia</button>
+    </div>
+    <div class="lista" id="lista"></div>
+  </main>
+
+  <div id="aviso" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://vxmijowqzvxiztrspdrz.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_mksDMdzuFJwAPeLM5Gyovw_g5knnWON";
+    const BUCKET = "imagenes";
+
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const $ = (s) => document.querySelector(s);
+    let cliente = null;
+    let fragancias = [];
+
+    /* ── utilidades ── */
+    const h = (tag, props = {}, ...hijos) => {
+      const el = document.createElement(tag);
+      for (const [k, v] of Object.entries(props)) {
+        if (k === "class") el.className = v;
+        else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+        else if (k in el) el[k] = v;
+        else el.setAttribute(k, v);
+      }
+      el.append(...hijos.filter((x) => x != null));
+      return el;
+    };
+
+    let avisoTimer;
+    const aviso = (texto, tipo = "ok") => {
+      const el = $("#aviso");
+      el.textContent = texto;
+      el.className = `visible ${tipo}`;
+      clearTimeout(avisoTimer);
+      avisoTimer = setTimeout(() => (el.className = ""), 3200);
+    };
+
+    const urlPublica = (ruta) => ruta ? sb.storage.from(BUCKET).getPublicUrl(ruta).data.publicUrl : "";
+
+    // Achica la foto del celular a 1200 px de lado mayor (JPEG) antes de subirla
+    const achicarFoto = async (file) => {
+      try {
+        const img = await createImageBitmap(file);
+        const max = 1200, k = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement("canvas");
+        c.width = Math.round(img.width * k);
+        c.height = Math.round(img.height * k);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", 0.85));
+        return blob || file;
+      } catch {
+        return file;   // si el navegador no la puede procesar, se sube tal cual
+      }
+    };
+
+    const nombreArchivo = (nombre) =>
+      (nombre || "frasco").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "frasco";
+
+    const subirFoto = async (file, nombre) => {
+      const blob = await achicarFoto(file);
+      const ruta = `${cliente}/${nombreArchivo(nombre)}-${Date.now()}.jpg`;
+      const { error } = await sb.storage.from(BUCKET).upload(ruta, blob, { contentType: "image/jpeg", upsert: false });
+      if (error) throw error;
+      return ruta;
+    };
+
+    const borrarFoto = async (ruta) => {
+      if (ruta && ruta.startsWith(`${cliente}/`)) {
+        await sb.storage.from(BUCKET).remove([ruta]);   // si falla no pasa nada: queda huérfana
+      }
+    };
+
+    /* ── vistas ── */
+    const mostrarLogin = () => {
+      $("#vista-panel").hidden = true;
+      $("#usuario").hidden = true;
+      $("#vista-login").hidden = false;
+      $("#email").focus();
+    };
+
+    const entrar = async (session) => {
+      const { data, error } = await sb.rpc("mi_cliente");
+      if (error || !data) {
+        await sb.auth.signOut();
+        mostrarLogin();
+        $("#login-error").textContent = error
+          ? "No se pudo verificar el usuario. Probá de nuevo."
+          : "Este usuario no tiene un negocio asignado.";
+        return;
+      }
+      cliente = data;
+      $("#usuario-email").textContent = session.user.email;
+      $("#usuario").hidden = false;
+      $("#vista-login").hidden = true;
+      $("#vista-panel").hidden = false;
+      await cargar();
+    };
+
+    const cargar = async () => {
+      const { data, error } = await sb.from("fragancias")
+        .select("*").eq("cliente", cliente).order("orden").order("id");
+      if (error) { aviso("No se pudieron cargar las fragancias", "mal"); return; }
+      fragancias = data;
+      dibujar();
+    };
+
+    const dibujar = () => {
+      const lista = $("#lista");
+      if (!fragancias.length) {
+        lista.replaceChildren(h("p", { class: "vacio" }, "Todavía no hay fragancias. Tocá “+ Nueva fragancia”."));
+        return;
+      }
+      lista.replaceChildren(...fragancias.map(tarjeta));
+    };
+
+    const tarjeta = (f) => {
+      let archivoNuevo = null;
+
+      const img = h("img", { src: urlPublica(f.imagen), alt: "" });
+      const vacia = h("span", { class: "vacia" }, "Tocá para subir una foto");
+      if (f.imagen) vacia.hidden = true; else img.hidden = true;
+
+      const pendiente = h("span", { class: "pendiente", hidden: true }, "Foto nueva sin guardar");
+      const inputFoto = h("input", {
+        type: "file", accept: "image/*",
+        onchange: (e) => {
+          archivoNuevo = e.target.files[0] || null;
+          if (!archivoNuevo) return;
+          img.src = URL.createObjectURL(archivoNuevo);
+          img.hidden = false; vacia.hidden = true; pendiente.hidden = false;
+        }
+      });
+
+      const nombre = h("input", { type: "text", value: f.nombre, maxLength: 60 });
+      const desc = h("textarea", { rows: 2, maxLength: 160 }); desc.value = f.descripcion || "";
+      const alt = h("input", { type: "text", value: f.alt || "", maxLength: 160, placeholder: "Ej: Frasco Mumha Lavanda con etiqueta violeta" });
+      const orden = h("input", { type: "number", value: f.orden, step: 1 });
+      const activo = h("input", { type: "checkbox", checked: f.activo });
+
+      const card = h("article", { class: "item" + (f.activo ? "" : " inactivo") });
+
+      const btnGuardar = h("button", {
+        type: "button", class: "lleno",
+        onclick: async () => {
+          if (!nombre.value.trim()) { aviso("La fragancia necesita un nombre", "mal"); nombre.focus(); return; }
+          btnGuardar.disabled = true; btnGuardar.textContent = "Guardando…";
+          try {
+            const cambios = {
+              nombre: nombre.value.trim(),
+              descripcion: desc.value.trim(),
+              alt: alt.value.trim(),
+              orden: parseInt(orden.value, 10) || 0,
+              activo: activo.checked,
+            };
+            const fotoVieja = f.imagen;
+            if (archivoNuevo) cambios.imagen = await subirFoto(archivoNuevo, cambios.nombre);
+
+            const { data, error } = await sb.from("fragancias").update(cambios).eq("id", f.id).select().single();
+            if (error) throw error;
+
+            if (archivoNuevo && fotoVieja) borrarFoto(fotoVieja);
+            Object.assign(f, data);
+            archivoNuevo = null; pendiente.hidden = true;
+            card.classList.toggle("inactivo", !f.activo);
+            aviso("Guardado ✓");
+            if (fragancias.some((x, i, a) => i && a[i - 1].orden > x.orden)) {
+              fragancias.sort((a, b) => a.orden - b.orden || a.id - b.id);
+              dibujar();
+            }
+          } catch (e) {
+            console.error(e);
+            aviso("No se pudo guardar: " + (e.message || "error"), "mal");
+          } finally {
+            btnGuardar.disabled = false; btnGuardar.textContent = "Guardar";
+          }
+        }
+      }, "Guardar");
+
+      const btnBorrar = h("button", {
+        type: "button", class: "peligro",
+        onclick: async () => {
+          if (!confirm(`¿Eliminar “${f.nombre}”? Si solo querés ocultarla, destildá “Visible” y guardá.`)) return;
+          btnBorrar.disabled = true;
+          const { error } = await sb.from("fragancias").delete().eq("id", f.id);
+          if (error) { aviso("No se pudo eliminar", "mal"); btnBorrar.disabled = false; return; }
+          borrarFoto(f.imagen);
+          fragancias = fragancias.filter((x) => x.id !== f.id);
+          dibujar();
+          aviso("Eliminada");
+        }
+      }, "Eliminar");
+
+      card.append(
+        h("label", { class: "foto", title: "Cambiar foto" }, img, vacia, h("span", { class: "cambiar" }, "Cambiar foto"), inputFoto),
+        h("div", {},
+          h("div", { class: "fila" },
+            h("label", { class: "campo" }, "Nombre", nombre),
+            h("label", { class: "campo" }, "Orden", orden)),
+          h("label", { class: "campo" }, "Descripción", desc),
+          h("label", { class: "campo" }, "Texto alternativo de la foto (opcional)", alt),
+          h("div", { class: "acciones" },
+            h("label", { class: "switch" }, activo, "Visible en la página"),
+            pendiente,
+            h("span", { class: "espacio" }),
+            btnBorrar, btnGuardar))
+      );
+      return card;
+    };
+
+    /* ── eventos ── */
+    $("#form-login").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = $("#btn-entrar");
+      $("#login-error").textContent = "";
+      btn.disabled = true; btn.textContent = "Entrando…";
+      const { data, error } = await sb.auth.signInWithPassword({
+        email: $("#email").value.trim(),
+        password: $("#password").value,
+      });
+      btn.disabled = false; btn.textContent = "Entrar";
+      if (error) { $("#login-error").textContent = "Email o contraseña incorrectos."; return; }
+      $("#password").value = "";
+      entrar(data.session);
+    });
+
+    $("#btn-salir").addEventListener("click", async () => {
+      await sb.auth.signOut();
+      cliente = null; fragancias = [];
+      $("#lista").replaceChildren();
+      mostrarLogin();
+    });
+
+    $("#btn-nueva").addEventListener("click", async () => {
+      const btn = $("#btn-nueva");
+      btn.disabled = true;
+      const orden = fragancias.reduce((m, f) => Math.max(m, f.orden), 0) + 1;
+      const { data, error } = await sb.from("fragancias")
+        .insert({ cliente, nombre: "Nueva fragancia", descripcion: "", orden, activo: false })
+        .select().single();
+      btn.disabled = false;
+      if (error) { aviso("No se pudo crear: " + error.message, "mal"); return; }
+      fragancias.push(data);
+      dibujar();
+      const ultima = $("#lista").lastElementChild;
+      ultima.scrollIntoView({ behavior: "smooth", block: "center" });
+      ultima.querySelector("input[type=text]").select();
+      aviso("Creada oculta: completala, subí la foto, tildá Visible y guardá.");
+    });
+
+    /* ── arranque ── */
+    sb.auth.getSession().then(({ data: { session } }) => session ? entrar(session) : mostrarLogin());
+  </script>
+</body>
+</html>
